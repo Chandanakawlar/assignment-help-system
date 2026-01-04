@@ -1,4 +1,6 @@
 const HelpRequest = require("../models/HelpRequest");
+const Notification = require("../models/Notification");
+const User = require("../models/User");
 
 exports.createRequest = async (req, res) => {
   try {
@@ -35,16 +37,25 @@ exports.getOpenRequests = async (req, res) => {
 
 exports.acceptRequest = async (req, res) => {
   try {
-    const request = await HelpRequest.findById(req.params.id);
+    const request = await HelpRequest.findById(req.params.id).populate("student");
     if (!request) return res.status(404).json({ msg: "Request not found" });
 
-    request.helper = req.user.id;
     request.status = "accepted";
+    request.helper = req.user.id;
     await request.save();
 
-    res.json(request);
+    // get helper details
+    const helper = await User.findById(req.user.id);
+
+    // create notification for student
+    await Notification.create({
+      user: request.student._id,
+      message: `Your help request has been accepted by ${helper.name} (Email: ${helper.email})`
+    });
+
+    res.json({ msg: "Request accepted" });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ msg: "Server Error" });
+    res.status(500).json({ msg: "Server error" });
   }
 };
