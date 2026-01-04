@@ -4,19 +4,24 @@ const cors = require("cors");
 require("dotenv").config();
 
 const authRoutes = require("./routes/authRoutes");
-const assignmentRoutes = require("./routes/assignmentRoutes");
+const requestRoutes = require("./routes/requestRoutes");
 
 const app = express();
 
-app.use(cors());
+// Middlewares
+app.use(cors()); // Allow all origins (dev purpose)
 app.use(express.json());
 app.use("/uploads", express.static("uploads"));
 
+// Routes
+app.use("/api/auth", authRoutes);
+app.use("/api/requests", requestRoutes);
+
+// Connect MongoDB
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("MongoDB Connected"))
-  .catch(err => console.log(err));
+  .catch(err => console.log("MongoDB Connection Error:", err));
 
-app.use("/api/auth", authRoutes);
-app.use("/api/assignments", assignmentRoutes);
-
-app.listen(5000, () => console.log("Server running on port 5000"));
+// Start server
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
