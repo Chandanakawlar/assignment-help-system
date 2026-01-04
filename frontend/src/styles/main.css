@@ -1,0 +1,100 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial;
+}
+
+.landing {
+  height: 100vh;
+  background: linear-gradient(to right, #667eea, #764ba2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.overlay {
+  background: white;
+  padding: 40px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 500px;
+}
+
+.buttons {
+  margin-top: 20px;
+}
+
+.btn {
+  padding: 10px 20px;
+  background: #667eea;
+  color: white;
+  text-decoration: none;
+  margin: 10px;
+  border-radius: 5px;
+  display: inline-block;
+}
+
+.btn-outline {
+  background: white;
+  color: #667eea;
+  border: 2px solid #667eea;
+}
+
+.auth, .dashboard {
+  max-width: 400px;
+  margin: 50px auto;
+}
+
+form input, form textarea, select {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  background: #667eea;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.card {
+  background: #f1f1f1;
+  padding: 15px;
+  margin: 10px 0;
+}
+
+.navbar {
+  padding: 10px 20px;
+  background: #764ba2;
+  display: flex;
+}
+
+.navbar .btn {
+  color: white;
+  text-decoration: none;
+  margin-right: 10px;
+  background: transparent;
+  border: 1px solid white;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.navbar .btn:hover {
+  background: white;
+  color: #764ba2;
+}
+
+textarea {
+  resize: vertical;
+}
+
+@media (max-width: 600px) {
+  .overlay {
+    padding: 20px;
+  }
+}

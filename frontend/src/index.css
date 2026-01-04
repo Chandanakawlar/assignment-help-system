@@ -1,0 +1,74 @@
+
+
+
+.card {
+background: white;
+padding: 20px;
+margin: 30px auto;
+width: 350px;
+border-radius: 10px;
+box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+
+input, textarea, select, button {
+width: 100%;
+margin: 10px 0;
+padding: 8px;
+}
+
+
+button {
+background: #ff7a18;
+color: white;
+border: none;
+cursor: pointer;
+}
+
+
+button:hover {
+background: #e96b0c;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Force full height everywhere */
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+/* CENTER LAYOUT */
+.page {
+  @apply min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-600 to-cyan-500;
+}
+
+/* GLASS CARD */
+.glass {
+  @apply bg-white/20 backdrop-blur-xl rounded-2xl shadow-xl border border-white/30;
+}
+
+/* FORM CARD */
+.form {
+  @apply w-[380px] p-8 flex flex-col items-center gap-4;
+}
+
+/* TITLE */
+.title {
+  @apply text-3xl text-white font-bold text-center;
+}
+
+/* INPUTS */
+input,
+select {
+  @apply w-full px-4 py-2 rounded-lg bg-white/20 text-white placeholder-white/70 outline-none focus:ring-2 focus:ring-white;
+}
+
+/* BUTTON */
+.btn {
+  @apply w-full bg-white text-indigo-700 py-2 rounded-lg font-semibold hover:bg-white/90 transition;
+}
