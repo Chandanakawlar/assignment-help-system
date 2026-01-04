@@ -7,6 +7,7 @@ import "../styles/main.css";
 export default function Navbar() {
   const [count, setCount] = useState(0);
   const navigate = useNavigate();
+const role = localStorage.getItem("role");
 
   useEffect(() => {
     const fetchNotifications = async () => {
@@ -29,11 +30,12 @@ export default function Navbar() {
 
       <div className="nav-right">
         <Link to="/" className="nav-link">Home</Link>
-
+{role && (
         <Link to="/notifications" className="bell">
           <FaBell size={20} />
           {count > 0 && <span className="badge">{count}</span>}
         </Link>
+        )}
       </div>
     </nav>
   );

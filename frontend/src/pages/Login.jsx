@@ -1,7 +1,7 @@
 import { useState } from "react";
 import API from "../api/api";
 import { useNavigate } from "react-router-dom";
-import Navbar from "../components/Navbar";
+// import Navbar from "../components/Navbar";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -26,7 +26,7 @@ export default function Login() {
 
   return (
     <div>
-      <Navbar />
+      {/* <Navbar /> */}
       <div className="auth">
         <h2>Login</h2>
         <form onSubmit={handleLogin}>

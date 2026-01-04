@@ -4,24 +4,34 @@ const User = require("../models/User");
 
 exports.createRequest = async (req, res) => {
   try {
-    if (!req.user || !req.user.id) return res.status(401).json({ msg: "Unauthorized" });
-
     const { title, description, cost, lastDate } = req.body;
-    if (!title || !description || !cost || !lastDate)
-      return res.status(400).json({ msg: "All fields required" });
+
+    if (!title || !description || !cost || !lastDate) {
+      return res.status(400).json({ msg: "All fields are required" });
+    }
 
     const request = await HelpRequest.create({
       title,
       description,
-      student: req.user.id,
       cost,
-      lastDate
+      lastDate,
+      student: req.user.id
     });
+
+    // 🔔 Notify all helpers
+    const helpers = await User.find({ role: "helper" });
+
+    const notifications = helpers.map(helper => ({
+      user: helper._id,
+      message: `New help request: ${title} (₹${cost})`
+    }));
+
+    await Notification.insertMany(notifications);
 
     res.json(request);
   } catch (err) {
-    console.error("Create Request Error:", err);
-    res.status(500).json({ msg: "Server Error" });
+    console.error(err);
+    res.status(500).json({ msg: "Server error" });
   }
 };
 
