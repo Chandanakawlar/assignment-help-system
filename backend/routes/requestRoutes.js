@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const auth = require("../middleware/authMiddleware");
 const { createRequest, getOpenRequests, acceptRequest } = require("../controllers/requestController");
+const { markAsPaid } = require("../controllers/requestController");
 
 // POST /api/requests
 router.post("/", auth, createRequest);
@@ -12,3 +13,5 @@ router.get("/open", auth, getOpenRequests);
 router.put("/accept/:id", auth, acceptRequest);
 
 module.exports = router;
+
+
