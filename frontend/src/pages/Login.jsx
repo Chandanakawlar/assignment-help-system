@@ -1,7 +1,8 @@
 import { useState } from "react";
 import API from "../api/api";
 import { useNavigate } from "react-router-dom";
-// import Navbar from "../components/Navbar";
+//import Navbar from "../components/Navbar";
+import "../styles/main.css";
 
 export default function Login() {
   const [email, setEmail] = useState("");

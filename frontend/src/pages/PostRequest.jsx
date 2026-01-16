@@ -1,62 +1,77 @@
 import { useState } from "react";
 import API from "../api/api";
-import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
+import "../styles/main.css";
 
 export default function PostRequest() {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [cost, setCost] = useState("");
-  const [lastDate, setLastDate] = useState("");
-  const navigate = useNavigate();
+  const [form, setForm] = useState({
+    title: "",
+    description: "",
+    cost: "",
+    lastDate: ""
+  });
 
-  const handleSubmit = async (e) => {
+  const handleChange = e =>
+    setForm({ ...form, [e.target.name]: e.target.value });
+
+  const handleSubmit = async e => {
     e.preventDefault();
-    if (!title || !description || !cost || !lastDate) {
-      return alert("All fields are required");
-    }
-
     try {
-      await API.post("/requests", { title, description, cost, lastDate });
-      alert("Request posted successfully");
-      navigate("/student");
+      await API.post("/requests", form);
+      alert("Help request posted successfully");
+      setForm({ title: "", description: "", cost: "", lastDate: "" });
     } catch (err) {
-      console.error("PostRequest Error:", err);
-      alert(err.response?.data?.msg || "Server Error");
+      alert(err.response?.data?.msg || "Error posting request");
     }
   };
 
   return (
-    <div>
+    <>
       <Navbar />
-      <div className="auth">
-        <h2>Post Help Request</h2>
-        <form onSubmit={handleSubmit}>
-          <input
-            placeholder="Title"
-            value={title}
-            onChange={e => setTitle(e.target.value)}
-          />
-          <textarea
-            placeholder="Description"
-            value={description}
-            onChange={e => setDescription(e.target.value)}
-          />
-          <input
-            type="number"
-            placeholder="Cost (₹)"
-            value={cost}
-            onChange={e => setCost(e.target.value)}
-          />
-          <input
-            type="date"
-            placeholder="Last Date"
-            value={lastDate}
-            onChange={e => setLastDate(e.target.value)}
-          />
-          <button>Submit</button>
-        </form>
+
+      <div className="page-bg">
+        <div className="form-card">
+          <h2>Post Help Request</h2>
+          <p>Describe your project and set requirements</p>
+
+          <form onSubmit={handleSubmit}>
+            <input
+              name="title"
+              placeholder="Project Title"
+              value={form.title}
+              onChange={handleChange}
+              required
+            />
+
+            <textarea
+              name="description"
+              placeholder="Project Description"
+              value={form.description}
+              onChange={handleChange}
+              required
+            />
+
+            <input
+              type="number"
+              name="cost"
+              placeholder="Cost (₹)"
+              value={form.cost}
+              onChange={handleChange}
+              required
+            />
+
+            <input
+              type="date"
+              name="lastDate"
+              value={form.lastDate}
+              onChange={handleChange}
+              required
+            />
+
+            <button type="submit">Post Request</button>
+          </form>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
