@@ -445,3 +445,21 @@ textarea {
   }
 }
 
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.logo img {
+  height: 40px;
+  width: auto;
+}
+
+.logo span {
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+}
+

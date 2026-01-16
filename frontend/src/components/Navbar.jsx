@@ -3,6 +3,7 @@ import { FaBell } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import API from "../api/api";
 import "../styles/main.css";
+import logo from "../assets/logo.jpeg";
 
 export default function Navbar() {
   const [count, setCount] = useState(0);
@@ -33,7 +34,8 @@ export default function Navbar() {
   return (
     <nav className="navbar">
       <div className="logo" onClick={() => navigate("/")}>
-        Help System
+        <img src={logo} alt="Help System Logo" />
+        <span>Help System</span>
       </div>
 
       <div className="nav-right">
